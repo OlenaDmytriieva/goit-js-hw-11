@@ -1,7 +1,35 @@
-import"./assets/modulepreload-polyfill-3cfb730f.js";import{S as t}from"./assets/vendor-870f0eb5.js";const e=[{preview:"https://cdn.pixabay.com/photo/2019/05/14/16/43/rchids-4202820__480.jpg",original:"https://cdn.pixabay.com/photo/2019/05/14/16/43/rchids-4202820_1280.jpg",description:"Hokkaido Flower"},{preview:"https://cdn.pixabay.com/photo/2019/05/14/22/05/container-4203677__340.jpg",original:"https://cdn.pixabay.com/photo/2019/05/14/22/05/container-4203677_1280.jpg",description:"Container Haulage Freight"},{preview:"https://cdn.pixabay.com/photo/2019/05/16/09/47/beach-4206785__340.jpg",original:"https://cdn.pixabay.com/photo/2019/05/16/09/47/beach-4206785_1280.jpg",description:"Aerial Beach View"},{preview:"https://cdn.pixabay.com/photo/2016/11/18/16/19/flowers-1835619__340.jpg",original:"https://cdn.pixabay.com/photo/2016/11/18/16/19/flowers-1835619_1280.jpg",description:"Flower Blooms"},{preview:"https://cdn.pixabay.com/photo/2018/09/13/10/36/mountains-3674334__340.jpg",original:"https://cdn.pixabay.com/photo/2018/09/13/10/36/mountains-3674334_1280.jpg",description:"Alpine Mountains"},{preview:"https://cdn.pixabay.com/photo/2019/05/16/23/04/landscape-4208571__340.jpg",original:"https://cdn.pixabay.com/photo/2019/05/16/23/04/landscape-4208571_1280.jpg",description:"Mountain Lake Sailing"},{preview:"https://cdn.pixabay.com/photo/2019/05/17/09/27/the-alps-4209272__340.jpg",original:"https://cdn.pixabay.com/photo/2019/05/17/09/27/the-alps-4209272_1280.jpg",description:"Alpine Spring Meadows"},{preview:"https://cdn.pixabay.com/photo/2019/05/16/21/10/landscape-4208255__340.jpg",original:"https://cdn.pixabay.com/photo/2019/05/16/21/10/landscape-4208255_1280.jpg",description:"Nature Landscape"},{preview:"https://cdn.pixabay.com/photo/2019/05/17/04/35/lighthouse-4208843__340.jpg",original:"https://cdn.pixabay.com/photo/2019/05/17/04/35/lighthouse-4208843_1280.jpg",description:"Lighthouse Coast Sea"}],n=document.querySelector(".gallery");function c(){const o=e.map(({preview:p,original:a,description:i})=>`<li class="gallery-item">
-  <a class="gallery-link" href="${a}">
-    <img class="gallery-image" src="${p}" alt="${i}" />
-  </a>
-</li>`).join(`
-`);n.insertAdjacentHTML("afterbegin",o)}c();let s=new t(".gallery a",{captionDelay:250,captionsData:"alt"});s.on("show.simplelightbox",function(){});
+import{i as n,S as u}from"./assets/vendor-7659544d.js";(function(){const a=document.createElement("link").relList;if(a&&a.supports&&a.supports("modulepreload"))return;for(const e of document.querySelectorAll('link[rel="modulepreload"]'))s(e);new MutationObserver(e=>{for(const r of e)if(r.type==="childList")for(const i of r.addedNodes)i.tagName==="LINK"&&i.rel==="modulepreload"&&s(i)}).observe(document,{childList:!0,subtree:!0});function t(e){const r={};return e.integrity&&(r.integrity=e.integrity),e.referrerPolicy&&(r.referrerPolicy=e.referrerPolicy),e.crossOrigin==="use-credentials"?r.credentials="include":e.crossOrigin==="anonymous"?r.credentials="omit":r.credentials="same-origin",r}function s(e){if(e.ep)return;e.ep=!0;const r=t(e);fetch(e.href,r)}})();const c=document.querySelector(".search-form"),l=document.querySelector(".loader");let d;c.addEventListener("submit",o=>{o.preventDefault();const a=c.querySelector("input").value.trim();l.style.display="block";let t=setInterval(()=>{},1e3);a?fetch(`https://pixabay.com/api/?key=42368868-12588a31d2c2b3196976be5e8&q=${a}&image_type=photo&orientation=horizontal&safesearch=true`).then(s=>{if(!s.ok)throw new Error("Network response is not ok");return s.json()}).then(s=>{const e=s.hits;if(e.length===0)n.error({title:"Error",titleColor:"#FFF",messageColor:"#FFF",message:"Sorry, there are no images matching your search query. Please try again!",backgroundColor:"#EF4040",position:"topRight",theme:"dark",timeout:5e3});else{d=document.querySelector(".gallery"),m(e);let r=new u(".gallery a",{captionDelay:250,captionsData:"alt"});r.on("show.simplelightbox",function(){}),r.refresh()}l.style.display="none",clearInterval(t)}).catch(s=>{console.error("Error:",s),l.style.display="none",clearInterval(t)}):(n.warning({title:"Caution",titleColor:"#FFF",messageColor:"#FFF",message:"This input field cannot be empty. Please enter your request!",backgroundColor:"#FFA000",position:"topRight",theme:"dark",timeout:5e3}),l.style.display="none",clearInterval(t))});function m(o){const a=o.map(t=>`<li class="gallery-item">
+                        <div class="box">
+                          <a class="gallery-link" href="${t.largeImageURL}">
+                            <img class="gallery-image" src="${t.webformatURL}" alt="${t.tags}" data-likes="${t.likes}" data-views="${t.views}" data-comments="${t.comments}" data-downloads="${t.downloads}"/>
+                            <div class="img-card">
+                              <div class="img-data">
+        <h4 class="data-title">Likes</h4>
+        <p class="data-value">
+          ${t.likes}
+        </p>
+      </div>
+      <div class="img-data">
+        <h4 class="data-title">Views</h4>
+        <p class="data-value">
+          ${t.views}
+        </p>
+      </div>
+      <div class="img-data">
+        <h4 class="data-title">Comments</h4>
+        <p class="data-value">
+          ${t.comments}
+        </p>
+      </div>
+      <div class="img-data">
+        <h4 class="data-title">Downloads</h4>
+        <p class="data-value">
+          ${t.downloads}
+        </p>
+      </div>
+                            </div>
+                          </a>
+                        </div>
+                      </li>`).join(`
+`);d.innerHTML=a}
 //# sourceMappingURL=commonHelpers.js.map
