@@ -1,5 +1,8 @@
-import { myGallery } from './pixabay-api';
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
+
 export function createGallery(images) {
+  const myGallery = document.querySelector('.gallery');
   const result = images
     .map(image => {
       return `<li class="gallery-item">
@@ -39,4 +42,12 @@ export function createGallery(images) {
     .join('\n');
 
   myGallery.innerHTML = result;
+
+  let gallery = new SimpleLightbox('.gallery a', {
+    captionDelay: 250,
+    captionsData: 'alt',
+  });
+
+  gallery.on('show.simplelightbox', function () {});
+  gallery.refresh();
 }
